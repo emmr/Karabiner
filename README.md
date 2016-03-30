@@ -58,7 +58,7 @@ Macのシステム環境設定で、修飾キーを下記の通りカスタマ�
 |CapsLook(物理)   | Command          |                  |
 |Control(物理)    |                  | Command          |
 |Option(物理)     |                  |                  |
-|Command(物理)    | Control          | Command          |
+|Command(物理)    | ~~Control~~          | Command          |
 
 
 
@@ -73,7 +73,7 @@ Macのシステム環境設定で、修飾キーを下記の通りカスタマ�
 |CapsLook(物理)   | Command          |                  |
 |Control(物理)    |                  | Command          |
 |Option(物理)     |                  |                  |
-|Command(物理)    | Control          | Command          |
+|Command(物理)    | ~~Control~~          | Command          |
 
 Karabinerのprivate.xmlに、iTerm専用にCommandにControlを割り当てる設定を追記し、有効化した。
 
@@ -95,7 +95,7 @@ Karabinerのprivate.xmlに、iTerm専用にCommandにControlを割り当てる�
 
 | 物理キー        | システム環境設定    | Karabiner        | Karabiner(iterm専用) |
 |:---            |:---              | :--              | :--             |
-|CapsLook(物理)   | Command          |                  | Control       |
+|CapsLook(物理)   | ~~Command~~          |                  | Control       |
 |Control(物理)    |                  | Command          |               |
 |Option(物理)     |                  |                  |               |
-|Command(物理)    | Control          | Command          |               |
+|Command(物理)    | ~~Control~~          | Command          |               |
