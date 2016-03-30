@@ -4,15 +4,10 @@
 
 ## 前提
 
-- 英字キーボード
-- システム環境設定で修飾キーを下記の通りカスタマイズ済み
+- MacBookPro 英字キーボード版を使用
+- HHKの英字キーボードを接続して使用することもある
 
-| 物理キー        | 機能    |
-|:---            |:---     |
-|CapsLook(物理)  | Command |
-|Control(物理)    | Control |
-|Option(物理)      | Option  |
-|Command(物理)     | Control |
+## よく使うアプリ
 
 - ターミナルアプリは『iTerm2』を使用
 - エディタは『SublimeText』を使用
@@ -20,14 +15,15 @@
 
 ## やりたいこと
 
-- 基本的に 「左・Command(物理)」+ 「tab」でアプリを切り替えたい
+- 全体的に「CapsLook(物理)」を「Command(機能)」として使いたい
 - ターミナル系アプリのときは 「CapsLook(物理)」を 「Control(機能)」 として使いたい
 - SublimeTextのときも 「CapsLook(物理)」を 「Control(機能)」 として使いたい
+- すべてのアプリで、「左・Command(物理)」+ 「tab」でアプリを切り替えたい
 - できるだけコピー、ペースト、アンドゥ、リドゥなどの基本操作はアプリ間で同じキー(物理)でやりたい
+- 付属キーボード使用時、1ボタンで『US』と『かな』を切り替えたい
+- HHK使用時、[左・Option]キー(物理)]  + [`] で『US』と『かな』を切り替えたい
 
-## 現在の状況
-
-### 全体
+### 実現状況
 
 | 機能                   | キー                         | 実現状況| メモ  |
 |:---                   |:---                          | :---:   | :--- |
@@ -36,45 +32,70 @@
 | 入力ソース切り替え(付属キーボード使用時)  | 1ボタンで[US/日本語]を切り替えたい  | ×  |
 | Alfredの呼び出し       |[左・CapsLook]キー(物理)]  2回押し | △    | 『iTerm2』『SublimeText』は [左・Command]キー(物理)]  2回押し|
 
+## 現在の設定
+
+### 全体
+
+Macのシステム環境設定で、修飾キーを下記の通りカスタマイズした。
+
+| 物理キー        | システム環境設定    |
+|:---            |:---              |
+|CapsLook(物理)   | Command          |
+|Control(物理)    | 変更無し          |
+|Option(物理)     | 変更無し          |
+|Command(物理)    | Control          |
+
+その後、Karabinerで下記設定を有効化した。
+（一部アプリを除いて、ControlキーにCommandキーを割り当て）
+
+- Control_L to Command_L (expect Terminal, Virturl Machine, RDC, VNC, Teamviewer, EMACS, X11, Citrix Viewer)
+
+現在の設定。
+懸念点: 全体的にControlキーが無くなったこと。Controlキーが必要なアプリについては個別にKarabinerでxmlの設定が必要なこと。
+
+| 物理キー        | システム環境設定    | Karabiner        |
+|:---            |:---              | :--                |
+|CapsLook(物理)   | Command          |                  |
+|Control(物理)    |                  | Command          |
+|Option(物理)     |                  |                  |
+|Command(物理)    | Control          | Command          |
+
+
 
 ### ターミナル系アプリ
 
 『Terminal.app』は、カーソルでフォーカスしてコピーすることが出来ない（やり方がわからない）ので『iterm2』を使うことにする。
 
-#### ターミナル系アプリ使用時のキー割り当て
+設定前は下記の状態。
 
-A の左に Controlキー が欲しい。
-なので、ターミナル使用時は下記のキー割り当てにしたい。
-- [CapsLook(物理)(機能Control)] + [A] で行の先頭に移動
-- [CapsLook(物理)(機能Control)] + [C] でキャンセル
-などを実現したい。
+| 物理キー        | システム環境設定    | Karabiner        |
+|:---            |:---              | :--                |
+|CapsLook(物理)   | Command          |                  |
+|Control(物理)    |                  | Command          |
+|Option(物理)     |                  |                  |
+|Command(物理)    | Control          | Command          |
 
-| 物理キー       | システム環境設定の機能    | iTerm2 専用の機能 |
-|:---           |:---                   | :--             |
-|CapsLook(物理)  | Command               | Control         |
-|Command(物理)   | Control                | Command         |
+Karabinerのprivate.xmlに、iTerm専用にCommandにControlを割り当てる設定を追記し、有効化した。
 
-『iTerm2』の Preferences >> Keys より、 修飾キーを下記の通りカスタマイズ済み。
+```
+  <appdef>
+    <appname>iTerm2</appname>
+    <equal>com.googlecode.iterm2</equal>
+  </appdef>
 
-| 物理キー        | システム環境設定の機能 | iTerm2 専用の機能 |
-|:---            |:---                |:--             |
-|Command(物理)    | Control            |Command         |
+  <item>
+    <name>[my][iTerm2] Command_L to Control_L (iTerm2 ONLY)</name>
+    <identifier>iTerm2_change_CmdL-to-CtrlL</identifier>
+    <only>iTerm2</only>
+    <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode::CONTROL_L</autogen>
+  </item>
+```
 
-Karabinerでキーの入れ替え。
+有効化した状態。
 
-- Command と Control
-- Option と Shift
-
-
-| 機能                   | キー                         | 実現状況| メモ  |
-|:---                   |:---                          | :---:   | :--- |
-| 行の先頭に移動           |[左・Capslock(物理) + [A]      | ◎       |     |
-| 処理の中断              |[左・Capslock(物理) + [C]      | ◎       |     |
-| ペースト                |[左・Capslock(物理) + [C]      | ×        | 現在は[左・Commandキー(物理)] + [左・Shiftキー(物理)] + [C] で 『ClipMenu』呼び出し  |
-
-### エディタ
-
-
-- 『SublimeText』のときも 「CapsLook(物理)」を 「Control(機能)」 として使いたい。
-- でもアプリの切り替えは 「左・Command(物理)」+ 「tab」でおこないたいので、単純なキーの入れ替えじゃダメそう
-- 今のところうまいやり方がわかっていない
+| 物理キー        | システム環境設定    | Karabiner        | Karabiner(iterm専用) |
+|:---            |:---              | :--              | :--             |
+|CapsLook(物理)   | Command          |                  | Control       |
+|Control(物理)    |                  | Command          |               |
+|Option(物理)     |                  |                  |               |
+|Command(物理)    | Control          | Command          |               |
