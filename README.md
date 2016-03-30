@@ -29,7 +29,7 @@
 |:---                   |:---                          | :---:   | :--- |
 | アプリケーションの切り替え |[左・Commandキー(物理)] + [tab] | ◎     |     |
 | 入力ソース切り替え(HHK使用時)       |[左・Option]キー(物理)]  + [`]   | ×  |
-| 入力ソース切り替え(付属キーボード使用時)  | 1ボタンで[US/日本語]を切り替えたい  | ×  |
+| 入力ソース切り替え(付属キーボード使用時)  | 1ボタンで[US/日本語]を切り替えたい  | ◎  | Use Option_R as KANA/EISUU (toggle)
 | Alfredの呼び出し       |[左・CapsLook]キー(物理)]  2回押し | △   | 『iTerm2』は [左・Command]キー(物理)]  2回押し|
 
 ## 現在の設定
@@ -47,8 +47,11 @@ Macのシステム環境設定で、修飾キーを下記の通りカスタマ�
 
 その後、Karabinerで下記設定を有効化した。
 （一部アプリを除いて、ControlキーにCommandキーを割り当て）
+（Option_R でかなと英数を切り替え）
 
 - Control_L to Command_L (expect Terminal, Virturl Machine, RDC, VNC, Teamviewer, EMACS, X11, Citrix Viewer)
+
+- Use Option_R as KANA/EISUU (toggle) 
 
 現在の設定。
 懸念点: 全体的にControlキーが無くなったこと。Controlキーが必要なアプリについては個別にKarabinerでxmlの設定が必要なこと。
